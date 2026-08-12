@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Tells the browser what type of characters we're using -->
+    <meta charset="UTF-8">
+
+    <!-- Makes the page work properly on phones/tablets -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- This is the name shown on the browser tab -->
+    <title>PrePresentation</title>
+
+    <!-- Imports a nice font from Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =========================
+           GENERAL PAGE DESIGN
+           ========================= */
+
+        /* Makes sizing easier to control */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Main page */
+        body {
+            background-color: rgb(124, 230, 244);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            color: #1f2937;
+        }
+
+
+        /* =========================
+           TITLE
+           ========================= */
+
+        .title {
+            text-align: center;
+            font-size: 52px;
+            font-weight: 800;
+            padding-top: 30px;
+        }
+
+
+        /* =========================
+           LEFT MENU
+           ========================= */
+
+        .sidebar {
+            position: fixed;
+            left: 25px;
+            top: 130px;
+
+            width: 190px;
+
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* All menu buttons */
+        .menu-button {
+            border: none;
+            border-radius: 15px;
+
+            padding: 18px 15px;
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            background-color: white;
+            color: #1f2937;
+
+            transition: 0.2s;
+        }
+
+        /* Makes the button move slightly when the mouse is over it */
+        .menu-button:hover {
+            transform: translateX(5px);
+        }
+
+        /* Shows which page we're currently on */
+        .current {
+            background-color: #4b7bec;
+            color: white;
+        }
+
+
+        /* =========================
+           MAIN CONTENT
+           ========================= */
+
+        .main-content {
+            width: 750px;
+            max-width: calc(100% - 300px);
+
+            margin: 55px auto 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           STATS
+           ========================= */
+        
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background-color: white;
+            border-radius: 20px;
+
+            padding: 30px 20px;
+
+            text-align: center;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 35px;
+            font-weight: 800;
+        }
+
+
+        /* =========================
+           DAILY STREAK
+           ========================= */
+
+        .streak {
+            font-size: 48px;
+        }
+
+        .lightning {
+            font-size: 55px;
+            margin-bottom: 5px;
+        }
+
+
+        /* =========================
+           ACHIEVEMENTS
+           ========================= */
+
+        .achievements {
+            margin-top: 35px;
+
+            background-color: white;
+            border-radius: 20px;
+
+            padding: 30px;
+
+            text-align: center;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .trophy-button {
+            border: none;
+            background: #f5f5f5;
+
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            font-size: 45px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .trophy-button:hover {
+            transform: scale(1.08);
+        }
+
+
+        /* =========================
+           MOBILE
+           ========================= */
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                position: static;
+                width: auto;
+
+                flex-direction: row;
+                justify-content: center;
+
+                margin: 25px;
+            }
+
+            .menu-button {
+                padding: 12px;
+            }
+
+            .main-content {
+                width: auto;
+                max-width: none;
+
+                margin: 30px 20px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .title {
+                font-size: 40px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================
+         MAIN TITLE
+         ========================= -->
+
+    <h1 class="title">PrePresentation</h1>
+
+
+    <!-- =========================
+         LEFT NAVIGATION MENU
+         ========================= -->
+
+    <nav class="sidebar">
+
+        <!-- Settings button -->
+        <button class="menu-button">
+            ⚙️ Settings
+        </button>
+
+        <!-- Current page -->
+        <button class="menu-button current">
+            🏠 Home
+        </button>
+
+        <!-- Interactive page -->
+        <button class="menu-button">
+            🎤 Interactive
+        </button>
+
+        <!-- Results page -->
+        <button class="menu-button">
+            📊 Results
+        </button>
+
+    </nav>
+
+
+    <!-- =========================
+         MAIN HOME CONTENT
+         ========================= -->
+
+    <main class="main-content">
+
+        <h2 class="section-title">Your Progress</h2>
+
+
+        <!-- =========================
+             STATS
+             ========================= -->
+
+        <section class="stats">
+
+            <!-- Words said -->
+            <div class="stat-card">
+                <h3>Words Said</h3>
+                <p class="stat-number">0</p>
+            </div>
+
+
+            <!-- Practice time -->
+            <div class="stat-card">
+                <h3>Practice Time</h3>
+                <p class="stat-number">0 min</p>
+            </div>
+
+
+            <!-- Daily streak -->
+            <div class="stat-card">
+
+                <div class="lightning">⚡</div>
+
+                <h3>Daily Streak</h3>
+
+                <p class="stat-number streak">0</p>
+
+                <p>days</p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ACHIEVEMENTS
+             ========================= -->
+
+        <section class="achievements">
+
+            <h2 class="section-title">Achievements</h2>
+
+            <!-- Trophy button for now -->
+            <button class="trophy-button">
+                🏆
+            </button>
+
+        </section>
+
+    </main>
+
+</body>
+
+</html>
