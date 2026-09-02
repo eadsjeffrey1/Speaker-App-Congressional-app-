@@ -1,0 +1,27 @@
+/*This css file contains the main css looks that are in the interactive page */
+
+/*Button for the microphonee */
+.micButton {
+    display: block;
+    margin: 100px auto;
+    color: hsl(258, 68%, 4%);
+    font-size: 45px;
+    text-align: center;
+    
+    
+}
+
+/*Text box for said speech*/
+.text-box {
+    background-color: white;
+    width: 50%;
+    height: 500px;
+    border-radius: 20px;
+    padding: 30px 20px;
+    text-align: left;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    margin: 40px auto;
+    box-sizing: border-box;
+    display: block;
+    font-size: 20px;
+}

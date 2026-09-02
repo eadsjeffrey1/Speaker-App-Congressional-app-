@@ -4,7 +4,7 @@
     <!-- Everything in head is metadata that tells the body how its contents should look -->
     <head>
         <!-- Title in URL-->
-        <title>interactive-page</title>
+        <title>studio-page</title>
         
         <!--Connects Html to css file page (Note CSS is a dif language than html used to make the looks of the website)-->
         
@@ -12,24 +12,26 @@
         <link rel="stylesheet" href="speaker.css">
         
         <!--Specific Page CSS File-->
-        <link rel="stylesheet" href="interactive.css">
+        <link rel="stylesheet" href="studio.css">
     </head>
     
     <!-- Body is the actual contents of the page with the visuals chosen by the head -->
     <body>
         <!-- Heading of page -->
-        <h1 class="title" >Interactive</h1>
+        <h1 class="title" >Studio</h1>
 
         <!-- Side button links (Note: Add css class to make it pretty) -->
         <a class="sideButton" href="settings.html">Settings</a>
-        <a class="sideButton" href="index.html">Home</a>
+        <a class="sideButton" href="studio.html">Home</a>
         <a class="sideButton" href="results.html">Results</a>
         <a class="sideButton" href="interactive_page.html">Interactive</a>
 
         <!-- Creates Mic Button--> 
         <button id = "Mic_Button" class="micButton">Start Recording</button>
+        
+        <!-- Text Box for speech words-->
+        <textarea id="text-box" class="text-box" placeholder="Speech goes here..."></textarea>
 
-        <!-- Presentation text--> 
-        <a class="presentationText">User's Presentation Speech will go Here</a> 
+
     </body>
 </html>
