@@ -2,16 +2,19 @@
 
 body {
     /*Sets the background color to powder blue */
+    /*background-color: rgb(176, 230, 199);*/
     background-color: powderblue;
 }
 
 /*Title class controls how the title looks*/
 .title {
-    color: hsl(258, 68%, 4%);
-    font-size: 60px;
+    font-family: 'serato', sans-serif;
+    font-weight: 750;
+    color: rgb(12, 4, 50);
+    font-size: 70px;
     text-align: center;
     margin-top: 35px;
-    font-family: 'monaco', sans-serif;
+    margin-bottom: 20px;
 }
 /*
 h1 {
@@ -20,13 +23,30 @@ h1 {
 
 */
 .sideButton{
-    /*Tcolor: hsl(258, 68%, 4%);
-    font-size: 60px;
-    text-align: left;
-    margin-top: 35px;  */
-    
+    font-family: 'serato', sans-serif;
+    font-weight: 600;
     font-size: 30px;
-    /*Display block = makes the items on sep lines*/
-    display: block;
     margin: 15px;
+    display: inline-block;
+    width: 200px;
+    height: 65px;
+    border-radius: 25px;
+    background-color: white;
+    color:rgb(12, 4, 50);
+    text-decoration: none;
+    text-align: center;
+    line-height: 65px;
+     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+ 
 }
+
+.sideButton:hover{
+    transform: scale(1.02); 
+}
+
+.taskBar{
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+}
+

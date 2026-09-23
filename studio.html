@@ -20,18 +20,64 @@
         <!-- Heading of page -->
         <h1 class="title" >Studio</h1>
 
-        <!-- Side button links (Note: Add css class to make it pretty) -->
-        <a class="sideButton" href="settings.html">Settings</a>
-        <a class="sideButton" href="studio.html">Home</a>
-        <a class="sideButton" href="results.html">Results</a>
-        <a class="sideButton" href="interactive_page.html">Interactive</a>
+        <div class = "taskBar">
+            <!-- Side button links (Note: Add css class to make it pretty) -->
+            <a class="sideButton" href="settings.html">Settings</a>
+            <a class="sideButton" href="index.html">Home</a>
+            <a class="sideButton" href="results.html">Results</a>
+            <a class="sideButton" href="studio.html">Studio</a>
+        </div>
 
-        <!-- Creates Mic Button--> 
-        <button id = "Mic_Button" class="micButton">Start Recording</button>
+        <!-- div makes a container containing all the main features of the page -->
+        <div class="mainContent">
+            <div class = "leftContent">  
+            <!-- makes a container for buttons -->
+                <div class = "buttonRow">
+                        <!-- Creates Mic Button--> 
+                        <button id = "Mic_Button" class="micButton">Start Recording</button>
+                        
+                        <!-- Creates Process Button--> 
+                        <button id = "Process_Button" class="processButton">Process</button>
+
+                        <!-- Creates Trash Button--> 
+                        <button id = "Trash_Button" class="trashButton">Trash</button>
+
+                </div>
+
+                <div class = "showSpeech">
+                    <!-- Text Box for speech words-->
+                    <textarea id="text-box" class="text-box" placeholder="Speech goes here..."></textarea> 
+
+                    <!-- Webcam-->
+                    <video id="webcam" class = "webcamBox" autoplay></video>
+                </div>
+
+                
+
+            </div> 
+
+
+
+            <div class = "bulletBox">
+                <!-- Create bullet point list for the check sentences-->
+                <div class="checkBox">
+
+                <div id="bullet-list">
+
+                    <div class="bullet-item">
+                        <span>1.</span>
+                        <textarea placeholder="Sentences to check here...."></textarea>
+                    </div>
+
+                </div>
+
+                <button id="add-bullet" type="button">+</button>
+            </div>
+        </div>
+
+        <!--Loads Mic JavaScript Instructions-->
+        <script src="micScript.js"></script>
         
-        <!-- Text Box for speech words-->
-        <textarea id="text-box" class="text-box" placeholder="Speech goes here..."></textarea>
-
 
     </body>
 </html>

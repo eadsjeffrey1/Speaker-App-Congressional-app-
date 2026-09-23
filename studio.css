@@ -1,27 +1,228 @@
 /*This css file contains the main css looks that are in the interactive page */
 
+/*All the buttons, textoxes, bulletponts*/
+.mainContent{
+    display: flex;
+    margin-top: -300px;
+    
+    /*centers left to right*/
+    justify-content: center;
+    
+    /*Puts the children side to side*/
+    flex-direction: row;
+    
+    /*Aligns them at the same top level*/
+    align-items: flex-start;
+    gap: 30px;
+
+}
+
+/*Includes buttons, and text box*/
+.leftContent{
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    
+}
+
+
+
+/*class for div containing the buttons*/
+.buttonRow{
+    /*Puts them in flex row*/
+    display: flex;
+    
+    /*20 px inbetween*/
+    gap: 20px;
+    
+    /*Centers them in the row with the width being 100% of parent row*/
+    justify-content: center;
+    width: 100%;
+}
+
+/*class for div containing the textbox and webcam*/
+.showSpeech{
+    /*Puts them in flex row*/
+    display: flex;
+    width: 100%;
+    gap: 20px;
+}
+
+
+
+/*class for bulletpointbox*/
+.bulletBox{
+    display:flex;
+    /*Aligns items based off top edges*/
+    align-items: flex-start;
+    width: 15%;
+    flex-shrink: 0;
+}
+
+
+
+
+
+
 /*Button for the microphonee */
 .micButton {
-    display: block;
-    margin: 100px auto;
-    color: hsl(258, 68%, 4%);
+    font-family: 'serato', sans-serif;
+    color: rgb(12, 4, 50);
     font-size: 45px;
     text-align: center;
     
+    width: 400px;
+    height: 100px;
+    border-radius: 40px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.micButton:hover{
+    transform: scale(1.02); 
+}
+
+
+/*Process button */
+.processButton {
+    font-family: 'serato', sans-serif;
+    color: rgb(12, 4, 50);
+    font-size: 45px;
+    text-align: center;
+
+    width: 400px;
+    height: 100px;
+    border-radius: 40px;
+    
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+}
+
+.processButton:hover{
+    transform: scale(1.02); 
+}
+
+/*Trash button */
+.trashButton {
+    font-family: 'serato', sans-serif;
+    color: rgb(12, 4, 50);
+    font-size: 45px;
+    text-align: center;
+    
+    width: 400px;
+    height: 100px;
+    border-radius: 40px;
+    
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     
 }
+
+.trashButton:hover{
+    transform: scale(1.02); 
+}
+
+
+/*Text box for webcam*/
+.webcamBox{
+    width: 50%;
+    max-width: 1240px;
+    /*Changes it to 40 percent of broswer height*/
+    height: 40vh;
+    border-radius: 20px;
+    margin: 20px 0;
+    background-color: black;
+}
+
 
 /*Text box for said speech*/
 .text-box {
     background-color: white;
-    width: 50%;
-    height: 500px;
-    border-radius: 20px;
-    padding: 30px 20px;
     text-align: left;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    margin: 40px auto;
+    /*Tells Flebox not to shrink textbox*/
+    flex-shrink: 0;
+   
+
+    width: 50%;
+    max-width: 1240px;
+    /*Changes it to 40 percent of broswer height*/
+    height: 40vh;
+    border-radius: 20px;
     box-sizing: border-box;
-    display: block;
+    
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    
+    padding: 30px 20px;
+
+   /* gives it 20px of room above and below and positions it in the middled by dividing both sides*/
+    margin: 20px 0;
     font-size: 20px;
+}
+
+
+.checkBox {
+    background-color: rgb(209, 255, 213);
+    font-size: 20px;
+    text-align: left;
+    overflow-y: auto;
+    
+    /*Padding is space in element, like space between text and border*/
+    padding: 30px 20px;
+    
+    width: 100%;
+    /*60 percent of browswers hieght
+    /*vh only measures height*/
+    height: 49vh;
+    
+    
+
+    border-radius: 20px;
+    
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+
+
+    
+}
+.bullet-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.bullet-item span {
+    font-size: 18px;
+    padding-top: 8px;
+    min-width: 20px;
+}
+
+.bullet-item textarea {
+    font-size: 16px;
+    font-family: inherit;
+    
+    width: 100%;
+    height: 60px;
+    box-sizing: border-box;
+    resize: none;
+    border: none;
+    border-radius: 10px;
+    
+    padding: 8px;
+    
+    
+}
+
+#add-bullet {
+    font-size: 25px;
+    cursor: pointer;
+    
+    width: 35px;
+    height: 35px;
+
+    border: none;
+    border-radius: 50%;
+    
 }
