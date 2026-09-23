@@ -1,27 +1,78 @@
 <!-- Tells browser that the file is html-->
 <html>
-    <!-- Basically the settings of the page or like general info??-->
-    <!-- Everything in head is metadata that tells the body how its contents should look -->
     <head>
-        <!-- Title in URL-->
         <title>Results</title>
-        
-        <!--Connects Html to css file page (Note CSS is a dif language than html used to make the looks of the website)-->
+
+        <link rel="stylesheet" href="results.css">
         <link rel="stylesheet" href="speaker.css">
-
     </head>
-    <!-- Body is the actual contents of the page with the visuals chosen by the head -->
-    <body>
-        <!-- Heading of page -->
-        <h1 class="title" >Results</h1>
 
-        <div class = "taskBar">
-            <!-- Side button links (Note: Add css class to make it pretty) -->
-            <a class="sideButton" href="settings.html">Settings</a>
-            <a class="sideButton" href="index.html">Home</a>
-            <a class="sideButton" href="results.html">Results</a>
-            <a class="sideButton" href="studio.html">Studio</a>
-        </div>
+    <body>
+
+        <h1 class="title">Results</h1>
+
+
+
+        <!-- Everything underneath the heading -->
+
+            <!-- Left side -->
+            <div class="taskBar">
+
+                <a class="sideButton" href="settings.html">Settings</a>
+                <a class="sideButton" href="index.html">Home</a>
+                <a class="sideButton" href="results.html">Results</a>
+                <a class="sideButton" href="studio.html">Studio</a>
+
+            </div>
+
+
+            <!-- Right side -->
+            <div class="resultsContent">
+
+            <!-- Coogratulation message-->
+               <div class="completeMessage">
+                   <h2>SPEECH COMPLETE!⭐⭐</h2>
+               </div>
+                <!-- Time and WPM -->
+                <div class="statRow">
+
+                    <div class="statBox">
+                        <h3>Time Spent</h3>
+                        <p>whatever time</p>
+                    </div>
+
+                    <div class="statBox">
+                        <h3>Words Per Minute</h3>
+                        <p>yap yap</p>
+                    </div>
+
+                </div>
+
+
+                <!-- Filler words and body position -->
+                <div class="statRow">
+
+                    <textarea
+                        id="showFillerWords"
+                        class="resultTextBox"
+                        placeholder="Filler words..."></textarea>
+
+                    <textarea
+                        id="showBodyPosition"
+                        class="resultTextBox"
+                        placeholder="Body Position Rating..."></textarea>
+
+                </div>
+
+
+                <!-- Extra statistic -->
+                <div class="extraStat">
+                    <h3>whatever</h3>
+                    <p>---</p>
+                </div>
+
+         </div>
+
 
     </body>
 </html>
