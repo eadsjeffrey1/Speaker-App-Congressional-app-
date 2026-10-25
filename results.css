@@ -1,158 +1,136 @@
 
-/* Complete message */
-.completeMessage {
+
+/* Format for titles*/
+.result_subtitle{
     font-family: 'serato', sans-serif;
+    font-weight: 750;
     color: rgb(12, 4, 50);
-    font-size: 45px;
-    text-align: center;
-    height: 60px;
-}
-
-
-/* Everything containing the results */
-.resultsContent {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    gap:100px;
-    height: 100%;
-    width: 80%;
-
-    /* Places the results beside the buttons */
-    margin-left: 10%;
-    margin-top: -300px;
-    
-}
-
-
-/* Row containing statistics */
-.statRow {
-    display: flex;
-    flex-direction: row;
-
-    justify-content: center;
-
-    gap: 30px;
-
-    width: 100%;
-}
-
-
-/* Individual statistic box */
-.statBox {
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    background-color: white;
-
-    width: 50%;
-    min-height: 150px;
-
-    border-radius: 20px;
-
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-
-    box-sizing: border-box;
-
-    padding: 20px;
-}
-
-
-/* Statistic title */
-.statBox h3 {
-    font-family: 'serato', sans-serif;
-    color: rgb(12, 4, 50);
-
-    font-size: 25px;
-
-    margin: 0 0 15px 0;
-}
-
-
-/* Statistic number */
-.statBox p {
-    font-family: 'serato', sans-serif;
-    color: rgb(12, 4, 50);
-
-    font-size: 40px;
-
-    margin: 0;
-}
-
-
-/* Filler words and body position */
-.resultTextBox {
-    background-color: rgb(209, 255, 213);
-
-    font-family: 'serato', sans-serif;
-    color: rgb(12, 4, 50);
-
     font-size: 20px;
     text-align: left;
 
-    width: 50%;
-    height: 150px;
-
-    border: none;
-    border-radius: 20px;
-
-    box-sizing: border-box;
-    padding: 25px;
-
-    resize: none;
-
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
-
-/* Placeholder text */
-.resultTextBox::placeholder {
+.result_subtitle_v2{
+    width: 100%;
+    font-family: 'serato', sans-serif;
+    font-weight: 750;
     color: rgb(12, 4, 50);
-    opacity: 0.7;
+    font-size: 35px;
+    text-align: center;
+
 }
 
 
-/* Extra statistic */
-.extraStat {
+
+/* Creates a flexbox of the maincontent in a row */
+.mainContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: -250px;
+    margin-left: 275px;
+
+}
+
+/*Includes buttons, and text box*/
+.leftContent{
+    display: flex;
+    justify-content: flex-start;
+    
+    width: 50%;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    
+}
+
+/*Space in row for video box*/
+.video{
     display: flex;
     flex-direction: column;
-
     align-items: center;
-    justify-content: center;
+    width: 40%;
+}
 
-    background-color: white;
-
-    width: 35%;
-    min-height: 130px;
-
+/*Box for video*/
+.videoBox{
+    width: 100%;
+    max-width: 1240px;
+    /*Changes it to 40 percent of broswer height*/
+    height: 40vh;
     border-radius: 20px;
+    margin: 20px 0;
+    background-color: black;
+
 
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-
-    box-sizing: border-box;
-    padding: 20px;
 }
 
+/*Space in row for txt box and video*/
+.txtSpeech{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40%;
+}
 
-/* Extra statistic title */
-.extraStat h3 {
+/*txt box*/
+.speechBox{
+    width: 100%;
+    max-width: 1240px;
+    /*Changes it to 40 percent of broswer height*/
+    height: 40vh;
+    border-radius: 20px;
+    margin: 20px 0;
+    background-color: white;
+
+    /*Txt styff*/
+    padding: 4%;
     font-family: 'serato', sans-serif;
-    color: rgb(12, 4, 50);
-
-    font-size: 25px;
-
-    margin: 0 0 10px 0;
+    font-size: 18px;
 }
 
 
-/* Extra statistic value */
-.extraStat p {
-    font-family: 'serato', sans-serif;
-    color: rgb(12, 4, 50);
-    font-size: 30px;
-    margin: 0;
+/*Space in row for anaylis*/
+.analysis{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    width: 40%;
+    gap: 0px;
 }
+
+
+/*Movement anaylsis*/
+.movementBox{
+    display: flex;
+    width: 150%;
+    max-width: 500px;
+    /*Changes it to 20 percent of broswer height*/
+    height: 12vh;
+    border-radius: 20px;
+    /*margin: 20px 0;*/
+    background-color: white;
+    font-size: 20;
+    padding: 10px;
+    
+}
+
+/*Space in row for anaylis*/
+.text_analysisBox{
+    display: flex;
+    width: 100%;
+    max-width: 500px;
+    /*Changes it to 20 percent of broswer height*/
+    height: 20vh;
+    border-radius: 20px;
+   /*margin: 20px 0;*/
+    background-color: white;
+    margin-top: 10px;
+    margin-bottom: 20px;
+
+    font-size: 20;
+    padding: 10px;
+}
+

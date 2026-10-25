@@ -18,61 +18,123 @@
             <!-- Left side -->
             <div class="taskBar">
 
-                <a class="sideButton" href="settings.html">Settings</a>
-                <a class="sideButton" href="index.html">Home</a>
-                <a class="sideButton" href="results.html">Results</a>
+                <!--<a class="sideButton" href="settings.html">Settings</a>-->
+                <!--<a class="sideButton" href="index.html">Home</a>-->
                 <a class="sideButton" href="studio.html">Studio</a>
+                <a class="sideButton" href="results.html">Results</a>
+                
 
             </div>
 
 
-            <!-- Right side -->
-            <div class="resultsContent">
+            <!-- div makes a container containing all the main features of the page -->
+            <div class="mainContent">
+                <!-- Contains playable vid of speech-->
+                <div class = "video">  
+                    <h2 class = "result_subtitle_v2"> Video of Speech </h2>
 
-            <!-- Coogratulation message-->
-               <div class="completeMessage">
-                   <h2>SPEECH COMPLETE!⭐⭐</h2>
-               </div>
-                <!-- Time and WPM -->
-                <div class="statRow">
+                    <!-- Video-->
+                    <video id="video" class = "videoBox" autoplay></video>
+                </div>
 
-                    <div class="statBox">
-                        <h3>Time Spent</h3>
-                        <p>whatever time</p>
-                    </div>
+                <!--Contains speech textbox-->
+                <div class = "txtSpeech">  
+                    <h2 class = "result_subtitle_v2"> Speech in Text </h2>
 
-                    <div class="statBox">
-                        <h3>Words Per Minute</h3>
-                        <p>yap yap</p>
-                    </div>
+                    <!-- Text Box for speech words-->
+                    <textarea id="speech_TxtBox" class="speechBox" placeholder="Speech goes here..."></textarea> 
+                </div>
+                
+                <!--Contains speech anaylis and body movement analysis-->
+                <div class = "analysis"> 
+                    <h2 class = result_subtitle> Movement Analysis </h2>
+
+                    <!--Contains body analysis-->
+                    <textarea id="movement_TxtBox" class="movementBox" placeholder="Movement anlysis goes here..."></textarea> 
+                    
+                     <h2 class = result_subtitle> Speech Analysis </h2>
+                    <!--Contains txt analysis-->
+                    <textarea id="speech_analysis_TxtBox" class="text_analysisBox" placeholder="Speech anayliss goes here..."></textarea> 
 
                 </div>
 
-
-                <!-- Filler words and body position -->
-                <div class="statRow">
-
-                    <textarea
-                        id="showFillerWords"
-                        class="resultTextBox"
-                        placeholder="Filler words..."></textarea>
-
-                    <textarea
-                        id="showBodyPosition"
-                        class="resultTextBox"
-                        placeholder="Body Position Rating..."></textarea>
-
-                </div>
+            </div> 
 
 
-                <!-- Extra statistic -->
-                <div class="extraStat">
-                    <h3>whatever</h3>
-                    <p>---</p>
-                </div>
 
-         </div>
+            
 
 
     </body>
 </html>
+
+<script>
+    const request = indexedDB.open("PrePresentationDB", 1);
+    
+    request.onerror = function() {
+        console.error("Could not open video database:", request.error);
+    };
+
+    request.onsuccess = function() {
+        const db = request.result;
+        const transaction = db.transaction("videos", "readonly");
+        const getRequest = transaction.objectStore("videos").get("recordedVideo");
+
+        getRequest.onsuccess = function() {
+            const videoBlob = getRequest.result;
+
+            if (videoBlob) {
+                document.getElementById("video").src = URL.createObjectURL(videoBlob);
+            }
+
+            db.close();
+        };
+    };
+    
+    
+    //Gets saves results and turns the saved JSON back into a javascript obj
+    const results = JSON.parse(localStorage.getItem("speechResults"));
+    console.log(results);
+    
+
+
+
+    //Finds transcript text box and puts transcript inside of it
+    document.getElementById("speech_TxtBox").textContent = results.transcript;
+
+    //Gets Movement Levels and displays them
+    const movementResults = JSON.parse(localStorage.getItem("movementResults"));
+    
+    //Displays results in easy to read format
+    document.getElementById("movement_TxtBox").value = "Head Movement: " + movementResults.headData + "\nShoulder Movement: " + movementResults.shoulderData;
+
+    //Displays the speech anaylsis in readable format
+    if (results){
+       
+
+        //Gets each objects words and adds it to a easy to read string
+        let fillerText = "";
+        for (let item of results.filler_Words){
+            fillerText +=item.word + ", ";
+        }
+
+        //Gets the pauses from the objs
+        let pauseText = "";
+
+        for (let item of results.pauses) {
+            pauseText += item.duration.toFixed(2) + " seconds between " + item.afterWord + " and " + item.beforeWord + "; ";
+        }
+
+        //Debug statement
+        console.log("Filler text:", fillerText);
+        console.log("Filler words data:", results.filler_Words);
+
+        document.getElementById("speech_analysis_TxtBox").value = 
+            "Word Count: " + results.word_Count +
+            "\nSpeaking Time: " + results.total_Time +
+            "\nWords Per Minute: " + results.wpm +
+            "\nFiller Count: " + results.filler_Count +
+            "\nFiller Words: " + fillerText +
+            "\nPauses: " + pauseText;
+    }
+</script>

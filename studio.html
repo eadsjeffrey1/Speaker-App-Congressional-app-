@@ -13,6 +13,9 @@
         
         <!--Specific Page CSS File-->
         <link rel="stylesheet" href="studio.css">
+
+        <!--Loads bodyTracker_Script as a module(imodule is a file that can import code from other files)-->
+        <script type = "module" src = "bodyTracker_Script.js"></script>
     </head>
     
     <!-- Body is the actual contents of the page with the visuals chosen by the head -->
@@ -22,10 +25,10 @@
 
         <div class = "taskBar">
             <!-- Side button links (Note: Add css class to make it pretty) -->
-            <a class="sideButton" href="settings.html">Settings</a>
-            <a class="sideButton" href="index.html">Home</a>
-            <a class="sideButton" href="results.html">Results</a>
+            <!--<a class="sideButton" href="settings.html">Settings</a>-->
+                <!--<a class="sideButton" href="index.html">Home</a>-->
             <a class="sideButton" href="studio.html">Studio</a>
+            <a class="sideButton" href="results.html">Results</a>
         </div>
 
         <!-- div makes a container containing all the main features of the page -->
@@ -36,9 +39,6 @@
                         <!-- Creates Mic Button--> 
                         <button id = "Mic_Button" class="micButton">Start Recording</button>
                         
-                        <!-- Creates Process Button--> 
-                        <button id = "Process_Button" class="processButton">Process</button>
-
                         <!-- Creates Trash Button--> 
                         <button id = "Trash_Button" class="trashButton">Trash</button>
 
@@ -50,10 +50,8 @@
 
                     <!-- Webcam-->
                     <video id="webcam" class = "webcamBox" autoplay></video>
+
                 </div>
-
-                
-
             </div> 
 
 
@@ -75,8 +73,10 @@
             </div>
         </div>
 
-        <!--Loads Mic JavaScript Instructions-->
-        <script src="micScript.js"></script>
+        <!--Loads Mic and Webcam JavaScript Instructions-->
+        <script src = "micScript.js"></script>
+        
+
         
 
     </body>

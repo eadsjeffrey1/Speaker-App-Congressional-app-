@@ -1,3 +1,37 @@
+function saveVideo(videoBlob) {
+    return new Promise(function(resolve, reject) {
+        const request = indexedDB.open("PrePresentationDB", 1);
+
+        request.onupgradeneeded = function() {
+            request.result.createObjectStore("videos");
+        };
+
+        request.onsuccess = function() {
+            const db = request.result;
+            const transaction = db.transaction("videos", "readwrite");
+
+            transaction.objectStore("videos").put(videoBlob, "recordedVideo");
+
+            transaction.oncomplete = function() {
+                db.close();
+                resolve();
+            };
+
+            transaction.onerror = function() {
+                db.close();
+                reject(transaction.error);
+            };
+        };
+
+        request.onerror = function() {
+            reject(request.error);
+        };
+    });
+}
+
+
+//Makes function from bdy tracker accessible to other scrips thru wind which represents browsers globeal environment
+window.calculateBody;
 
 //Finds HTML element Mic_Button and assigns it to the var micButton
 const micButton = document.getElementById("Mic_Button");
@@ -9,29 +43,201 @@ const speechText = document.getElementById("text-box");
 //Let means that value will change
 let isRecording = false;
 
+//Variables for Ai Audio Recording File
+//mediaRecorder is the actual recorder
+let mediaRecorder;
+//The recording is giving in chunks, so we store it into an arrray
+let audioChunks = [];
+
+//capture of combined video and audio stream
+let audio_cam_Recorder;
+
+let webcamStream;
+
+//holds the pieces of the video recording
+let video_Chunks = [];
+
 //Watches to see if mic button got clicked
-micButton.addEventListener("click", function(){
+//async: Mic acces takes a little time so async allows us to use await which waits until mic before moving on
+micButton.addEventListener("click", async function(){
     //Once mic button gets clicked, we are going to output debug state,ent into developer console
     console.log("Mic button got clicked so gs")
     
     //Checks if mic is recording
     // === means strict equal signs
     if (isRecording === false){
-        //Starts recording and recording state into true
+
+        //The following is for the audio recording used for the ai
+
+        //Var called recording holds mic connection, wait until browser give mic access Eads.J
+        const recording = await navigator.mediaDevices.getUserMedia({
+            //Gets Mic Access 
+            audio: true
+        });
+
+        //webcamStream waits asks the browser for access to camera, and waits for camera request to finish
+        webcamStream = await navigator.mediaDevices.getUserMedia({
+           //Requests video from webcam
+            video:true
+        });
+
+        document.getElementById("webcam").srcObject = webcamStream;
+        console.log("Camera connected:", document.getElementById("webcam").srcObject);
+        
+        const video = webcamStream.getVideoTracks()[0];
+        const audio = recording.getAudioTracks()[0];
+
+        //makes a list containing the video and audio
+        const inputs = [video, audio]
+
+        //Combines the two into one "stream" (btw this is the live)
+        const combinedStream = new MediaStream(inputs);
+        
+        //Creates a recorder that listens to the combineds stream
+        audio_cam_Recorder = new MediaRecorder(combinedStream);
+        //Begins to capture the combined video and audio stream
+        audio_cam_Recorder.start();
+
+        //when we get data from the recorder we put that piece into video_Chunks
+        audio_cam_Recorder.ondataavailable = function(event){
+            video_Chunks.push(event.data);
+        };
+
+        //Creates audio recorder ad tells it tor record from microphone stream
+        mediaRecorder = new MediaRecorder(recording);
+
+        //Empty list, because we dont want to keep old recordings
+        audioChunks = [];
+
+        //Tells recoder to start recording
+        mediaRecorder.start();
+
+        //Puts the chunks of audio into our array audioChunks
+        mediaRecorder.ondataavailable = function(event){
+            audioChunks.push(event.data)
+        }
+
+
+        //-----------------------------------------------------------------
+        //Starts recording and recording state into true (Recording for TextBoxVisual)Eads.J
         console.log("Mic on")
         recognition.start();
         isRecording = true;
+
+
 
         //Changes Mic Text to Recording
         micButton.textContent = "Recording"
     }
     else{
-        //If its recording and user clicks, then stop recording
+        //If its recording and user clicks, then stop recording both audios
         console.log("Mic off")
-        recognition.stop();
-        isRecording = false;
+        
+       
 
-        //Changes Mic Text to Recording
+        
+
+        //Waits until recording finishes
+        audio_cam_Recorder.onstop = async function(){
+            //combimes saved pieces into blob
+            const videoBlob = new Blob(video_Chunks,{ type:"video/webm"});
+            await saveVideo(videoBlob);
+
+            //Creates a Url where we can pla the vid
+            const vidURL = URL.createObjectURL(videoBlob);
+            console.log("Video URL: ", vidURL);
+
+            //Lets results pg access saved url 
+            localStorage.setItem("recordedVideo", vidURL);
+            console.log("Saved video URL: ", localStorage.getItem("recordedVideo"));
+
+            
+
+            //gets teh cameras media tracks, 
+            webcamStream.getTracks().forEach(function(track){
+                //stops each trac
+                track.stop();
+            });
+            //opens the url directly instead of making user press link
+            //window.open(vidURL);
+
+           //Saves the URL for the results page
+           //localStorage.setItem("recordedVideo", vidURL);
+    
+
+            //outputs the video in console
+            console.log("Video w/ audio ", videoBlob);
+        };
+
+        //Stops the recording(audio + cam)
+        audio_cam_Recorder.stop();
+        
+
+
+        //Turns off recording for text visual Eads.J
+        recognition.stop();
+        
+        //Turns off recording for the blob
+        mediaRecorder.stop();
+
+        //Gets results from bodyTracker
+        const bodyResults = window.calculateBody();
+
+        //Converts it into storable text and saves them so results html can access
+        localStorage.setItem("movementResults", JSON.stringify(bodyResults));
+        console.log(bodyResults);
+
+
+        //Creats the blob
+        //onstop: waits until recorder has finished stopping
+        mediaRecorder.onstop = function(){
+            //combines the audio chunks into one audio file-like obj
+            //audiBlob is what is sent to Express Server (Blob = Binary Large Obj--> Holds raw data)
+            const audioBlob = new Blob(audioChunks,{
+                //Tells browswer what kind of data Blob contains
+                type: "audio/webm"
+            });
+            //Shows the blob in the console (debug) Eads.J
+            console.log(audioBlob);
+            
+            //Sends request to "server" at port 3000
+            //localhost = your own computer, 3000 = port server ned to be listening on, /upload = route
+            fetch("http://localhost:3000/upload",{
+                //Sends data to server method=what kind of request we are giving
+                method: "POST",
+                //Sends actuall recording body=actual data
+                body: audioBlob
+            })
+            //Respons = what the server sends back
+            //Gets thes the serves respons and converts it to java script
+            .then(response => response.json())
+            //puts it into the data var
+            .then(data =>{
+                //sends the user to results after the video has been made
+                window.location.href = "results.html";
+
+                //Creates storage area in browser so results.html can access it
+                localStorage.setItem("speechResults", JSON.stringify(data));
+                console.log("New speech results saved: ", data);
+                console.log("Filler Words:", data.filler_Words);
+                console.log("Pauses:", data.pauses);
+                //Outputs the data from server into console
+                console.log("RESULTS FROM SERVER:", data);
+                console.log("TRANSCRIPT:", data.transcript);
+                console.log("WORD COUNT:", data.word_Count);
+                console.log("TOTAL TIME:", data.total_Time);
+                console.log("WPM:", data.wpm);
+                console.log("FILLER COUNT:", data.filler_Count);
+                console.log("FILLER WORDS:", data.filler_Words);
+                console.log("PAUSES:", data.pauses);
+                console.log(JSON.stringify(data.filler_Words, null, 2));
+            })
+
+        };
+        
+        
+        //Changes it so mic isnt recording and the text is click record
+        isRecording = false;
         micButton.textContent = "Click to Record"
     }
     
@@ -100,7 +306,7 @@ recognition.onresult = function(event){
 
 }
 
-
+//Trash Button
 const trashButton = document.getElementById("Trash_Button");
 //trashButton = name of obj
 //addEventListener = method
@@ -109,7 +315,7 @@ trashButton.addEventListener("click", function() {
     speechText.value = "";
 });   
 
-
+//Bullet Poitn List
 document.addEventListener("DOMContentLoaded", function() { //Makes the JS run after the HTML in this situation
 
     const bulletList = document.getElementById("bullet-list");
@@ -140,19 +346,3 @@ document.addEventListener("DOMContentLoaded", function() { //Makes the JS run af
 
 
 
-//Script for webcam
-
-//Finds Webcam Element
-const webcam = document.getElementById("webcam");
-
-//Asks for camera access
-navigator.mediaDevices.getUserMedia({video: true})
-    //Give the camera as a stream and put into <video> element
-    .then(stream => {
-        webcam.srcObject = stream;
-        console.log("Camera Connected");
-    })
-
-    .catch(error => {
-        console.error("Camera error:",error);
-    });
